@@ -12,7 +12,7 @@ from torch.utils.data.dataloader import DataLoader
 from database import Database
 
 DATA_DIR = './menwomen-classification/traindata/traindata'
-t = transforms.Compose([transforms.Resize((32, 32)), transforms.ToTensor()])
+t = transforms.Compose([transforms.Resize((128, 128)), transforms.ToTensor()])
 database = Database("menwomen-classification",
                     DATA_DIR,
                     ImageFolder(DATA_DIR, transform=t))
@@ -20,7 +20,7 @@ val_size = 500
 train_size = len(database.dataset) - val_size
 train_ds, val_ds = random_split(database.dataset, [train_size, val_size])
 
-batch_size=128
+batch_size=16
 train_dl = DataLoader(train_ds, batch_size, shuffle=True,
                       num_workers=2,
                       pin_memory=True)
@@ -49,8 +49,8 @@ model = ClassFinder()
 # Example of a training batch (replace this with actual DataLoader output)
 # images: Tensor of shape [batch_size, channels, height, width]
 # labels: Tensor of shape [batch_size]
-images = torch.randn(32, 3, 32, 32)  # Example image tensor (32 images, 3 channels, 32x32 pixels)
-labels = torch.randint(0, 10, (32,))  # Example labels tensor (32 labels, for 10 classes)
+images = torch.randn(16, 3, 128, 128)  # Example image tensor (32 images, 3 channels, 32x32 pixels)
+labels = torch.randint(0, 10, (16,))  # Example labels tensor (32 labels, for 10 classes)
 
 # Run a training step
 batch = (images, labels)
@@ -82,21 +82,33 @@ Visualizer.plot_losses(history)
 dataset_handler = DatasetHandler(DATA_DIR)
 test_dataset = dataset_handler.get_dataset()
 
-model_handler = ModelHandler(model=model, dataset=test_dataset, device=device)
-
-# Predict a single image
-img, label = test_dataset[1002]
-plt.imshow(img.permute(1, 2, 0))
-print(
-    f"Label: {test_dataset.classes[label]}, "
-    f"Predicted: {model_handler.predict_image(img)}"
-)
-
-# Evaluate the model on the test dataset
-test_loader = DeviceDataLoader(DataLoader(test_dataset, batch_size=32), device=device)  # Ensure batch_size is defined
-result = model_handler.evaluate_model(test_loader)
-print(result)
-
 torch.save(model.state_dict(), ‘men_women.pth’)
 model2 = to_device(class_finder(), device)
 model2.load_state_dict(torch.load(‘men_women.pth’))
+
+# Define the path to your new dataset
+DATA_DIR = './ads_in_80s'
+
+# Define your transformations (e.g., resizing and converting to tensor)
+t = transforms.Compose([transforms.Resize((32, 32)), transforms.ToTensor()])
+
+# Load the dataset using ImageFolder
+new_dataset = ImageFolder(DATA_DIR, transform=t)
+
+# Create a DataLoader for the new dataset
+batch_size = 32
+new_loader = DataLoader(new_dataset, batch_size=batch_size, shuffle=False, num_workers=2, pin_memory=True)
+
+# Load the pre-trained model (model2)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')  # Ensure the model is on the correct device
+model2.eval()  # Set model to evaluation mode
+
+# Example usage: Iterate through the new dataset and make predictions
+for images, labels in new_loader:
+    images = to_device(images, device)  # Move images to the correct device
+    outputs = model2(images)  # Forward pass through the model
+    _, predictions = torch.max(outputs, dim=1)  # Get predicted class indices
+
+    # Print predictions (you can process them further as needed)
+    print(f"Predicted classes: {predictions}")
+    print(f"True labels: {labels}")

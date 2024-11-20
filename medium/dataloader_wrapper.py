@@ -1,5 +1,7 @@
 import torch
 from device import Device
+from torch.utils.data.dataloader import DataLoader
+from torch.utils.data import DataLoader 
 
 class DataLoaderDeviceWrapper:
     """Wraps a dataloader to move data to a device."""

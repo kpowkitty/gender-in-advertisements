@@ -1,8 +1,10 @@
 .venv
 image_predictions.xlsx
 medium/ads_in_80s
-medium/ipynb_checkpoints
+medium/.ipynb_checkpoints
 medium/menwomen-classification
 medium/.venv
 medium/__pycache__
 medium/Untitled.ipynb
+medium/ads_2010s_above
+medium/ads_with_both_genders
