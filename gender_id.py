@@ -107,33 +107,34 @@ Visualizer.plot_losses(history)
 dataset_handler = DatasetHandler(DATA_DIR)
 test_dataset = dataset_handler.get_dataset()
 
-torch.save(model.state_dict(), ‘men_women.pth’)
+torch.save(model.state_dict(), 'men_women.pth')
 model2 = to_device(class_finder(), device)
-model2.load_state_dict(torch.load(‘men_women.pth’))
+model2.load_state_dict(torch.load('men_women.pth'))
 
+## Change the dataset & use pre-trained model from above
 # Define the path to your new dataset
-DATA_DIR = './ads_in_80s'
+# DATA_DIR = './ads_in_80s'
 
 # Define your transformations (e.g., resizing and converting to tensor)
-t = transforms.Compose([transforms.Resize((32, 32)), transforms.ToTensor()])
+# t = transforms.Compose([transforms.Resize((32, 32)), transforms.ToTensor()])
 
 # Load the dataset using ImageFolder
-new_dataset = ImageFolder(DATA_DIR, transform=t)
+# new_dataset = ImageFolder(DATA_DIR, transform=t)
 
 # Create a DataLoader for the new dataset
-batch_size = 32
-new_loader = DataLoader(new_dataset, batch_size=batch_size, shuffle=False, num_workers=2, pin_memory=True)
+# batch_size = 32
+# new_loader = DataLoader(new_dataset, batch_size=batch_size, shuffle=False, num_workers=2, pin_memory=True)
 
 # Load the pre-trained model (model2)
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')  # Ensure the model is on the correct device
-model2.eval()  # Set model to evaluation mode
+# device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')  # Ensure the model is on the correct device
+# model2.eval()  # Set model to evaluation mode
 
 # Example usage: Iterate through the new dataset and make predictions
-for images, labels in new_loader:
-    images = to_device(images, device)  # Move images to the correct device
-    outputs = model2(images)  # Forward pass through the model
-    _, predictions = torch.max(outputs, dim=1)  # Get predicted class indices
+# for images, labels in new_loader:
+#     images = to_device(images, device)  # Move images to the correct device
+#     outputs = model2(images)  # Forward pass through the model
+#     _, predictions = torch.max(outputs, dim=1)  # Get predicted class indices
 
-    # Print predictions (you can process them further as needed)
-    print(f"Predicted classes: {predictions}")
-    print(f"True labels: {labels}")
+#     # Print predictions (you can process them further as needed)
+#     print(f"Predicted classes: {predictions}")
+#     print(f"True labels: {labels}")
