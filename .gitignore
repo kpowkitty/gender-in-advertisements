@@ -1,10 +1,6 @@
-/*
-medium/menwomen-classification
-
-!.gitignore
-!pytorch.txt
-!test3.py
-!test2.py
-!test.py
-!medium/dataset_dl.py
-!medium/gender_id.py
+.venv
+.ipynb_checkpoints
+image_predictions.xlsx
+menwomen-classification
+__pycache__
+gender_id.ipynb
