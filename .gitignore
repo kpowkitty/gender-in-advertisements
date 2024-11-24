@@ -4,3 +4,4 @@ image_predictions.xlsx
 menwomen-classification
 __pycache__
 gender_id.ipynb
+.DS_store
