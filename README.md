@@ -57,19 +57,29 @@ With this tool, we can ensure that there is no gender bias in advertisements aga
 our younger generation from ever happening again!
 
 ## Guide
-Dependencies: torch, torchvision, matplotlib, opendatasets, Jupyter Labs
-<b>To train your own model:</b>
+<b>Dependencies:</b> torch, torchvision, matplotlib, opendatasets, Jupyter Labs
 1. First, clone the repository however you choose:<br>
     <code>git clone <ssh/https></code>
-2. Next, download the training dataset:<br>
-    <code>python dataset_dl.py</code>
-3. Open the project in Jupyter:<br>
+2. Open the project in Jupyter:<br>
     If you have Jupyter Labs:<br>
      <code>jupyter-lab</code><br>
-    Or, if you have jupyter notebooks,<br>
+    Or, if you have Jupyter Notebooks:<br>
      <code>jupyter-notebook</code>
-4. Open gender_id.ipynb
-5. If you want to resize the model, change the t to the resize you desire.
-    You must also change class_finder to have the correct matrix multiplication according to what dimensions you are resizing it to be.
-    You must also change any other variables in gender_id.py that are expecting that resolution to match.
-4. In gender_id.ipynb, run each cell one by one
+3. Open gender_id.ipynb<br>
+
+<b>To train your own model:</b><br>
+- Download the training dataset:<br>
+    <code>python dataset_dl.py</code>
+- Change <code>t</code> to the size you desire.<br>
+- Change class_finder to have the correct matrix multiplication according to what dimensions you are resizing it to be.<br>
+- Change any other variables in gender_id.py that are expecting that resolution to match.<br>
+- In gender_id.ipynb, run each cell one by one<br><br>
+
+<b>To use the pre-trained 32x32 model:</b><br>
+- In <code>gender_id.ipynb</code>, create new cells using the commented-out code at the bottom of <code>gender_id.py</code><br>
+     (make sure you also include the imported libraries at the top of this file)<br>
+- Redefine the path to your dataset using "DATA_DIR"<br>
+     This model is expecting a batch_size of 32.<br>
+- Run all cells
+
+Once I get this running on my home computer, I will release the 128x128 model, and more!
