@@ -55,3 +55,21 @@ aspects of the pictures.
 
 With this tool, we can ensure that there is no gender bias in advertisements again. This way, we can prevent similar effects on 
 our younger generation from ever happening again!
+
+## Guide
+Dependencies: torch, torchvision, matplotlib, opendatasets, Jupyter Labs
+<b>To train your own model:</b>
+1. First, clone the repository however you choose:<br>
+    <code>git clone <ssh/https></code>
+2. Next, download the training dataset:<br>
+    <code>python dataset_dl.py</code>
+3. Open the project in Jupyter:<br>
+    If you have Jupyter Labs:<br>
+     <code>jupyter-lab</code><br>
+    Or, if you have jupyter notebooks,<br>
+     <code>jupyter-notebook</code>
+4. Open gender_id.ipynb
+5. If you want to resize the model, change the t to the resize you desire.
+    You must also change class_finder to have the correct matrix multiplication according to what dimensions you are resizing it to be.
+    You must also change any other variables in gender_id.py that are expecting that resolution to match.
+4. In gender_id.ipynb, run each cell one by one
