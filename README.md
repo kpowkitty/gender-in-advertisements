@@ -63,7 +63,7 @@ our younger generation from ever happening again!
 2. Open the project in Jupyter:<br>
     If you have Jupyter Labs:<br>
      <code>jupyter-lab</code><br>
-    Or, if you have jupyter notebooks,<br>
+    Or, if you have Jupyter Notebooks,<br>
      <code>jupyter-notebook</code>
 3. Open gender_id.ipynb<br>
 
