@@ -9,9 +9,24 @@ import torchvision.transforms as transforms
 from torchvision.utils import make_grid
 from torchvision.datasets import ImageFolder
 from torch.utils.data.dataloader import DataLoader
-from database import Database
 
+from database import Database
+from class_finder import ClassFinder
+from dataloader_wrapper import DataLoaderDeviceWrapper
+from dataset_handler import DatasetHandler
+from device import Device
+from evaluator import Evaluator
+from image_classification import ImageClassificationBase
+from kernel import Conv2D
+from model_handler import ModelHandler
+from trainer import Trainer
+from visualizer import Visualizer
+
+# Cell 1 - Initialize dataset and dataloader, set transform, and show_example
 DATA_DIR = './menwomen-classification/traindata/traindata'
+
+# Note: if you resize the image, you must change class finder's matrix
+# multiplication to match the new expected dimension
 t = transforms.Compose([transforms.Resize((128, 128)), transforms.ToTensor()])
 database = Database("menwomen-classification",
                     DATA_DIR,
@@ -20,6 +35,7 @@ val_size = 500
 train_size = len(database.dataset) - val_size
 train_ds, val_ds = random_split(database.dataset, [train_size, val_size])
 
+# # of images
 batch_size=16
 train_dl = DataLoader(train_ds, batch_size, shuffle=True,
                       num_workers=2,
@@ -27,8 +43,11 @@ train_dl = DataLoader(train_ds, batch_size, shuffle=True,
 val_dl = DataLoader(val_ds, batch_size*2, num_workers=2, pin_memory=True)
 
 database.show_example(1010)
+
+# Cell 2 - show_batch
 database.show_batch(train_dl)
 
+# Cell 3 - Testing the kernel
 # Define a sample kernel (e.g., a simple edge detection kernel)
 kernel = torch.tensor([[1, 0, -1], [1, 0, -1], [1, 0, -1]])
 
@@ -43,6 +62,7 @@ output = conv.apply_kernel(image)
 
 print(output)
 
+# Cell 4 - Initialization and testing
 # Initialize the model
 model = ClassFinder()
 
@@ -63,6 +83,7 @@ print(f"Validation loss: {val_results['val_loss'].item()}, Validation accuracy: 
 
 model
 
+# Cell 5 - Training the model
 # Example of usage
 device = Device.get_default_device()
 train_dl = DataLoader(train_ds, batch_size, shuffle=True)
@@ -71,14 +92,18 @@ train_dl_device = DataLoaderDeviceWrapper(train_dl, device)
 for data in train_dl_device:
     # Now each batch is moved to the correct device
     images, labels = data
-    # Further processing...
+    # Further processing can be done here to fit your needs
 
 trainer = Trainer(model, train_loader=train_dl, val_loader=val_dl, num_epochs=10, lr=0.001, opt_func=torch.optim.Adam)
 history = trainer.fit()
 
+# Cell 6 - Plotting the accuracy vs. epochs
 Visualizer.plot_accuracies(history)
+
+# Cell 7 - Plotting the losses
 Visualizer.plot_losses(history)
 
+# Cell 8 - Saving the model
 dataset_handler = DatasetHandler(DATA_DIR)
 test_dataset = dataset_handler.get_dataset()
 
