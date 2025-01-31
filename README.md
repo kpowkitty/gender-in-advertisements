@@ -68,9 +68,9 @@ our younger generation from ever happening again!
 <b>To train your own model:</b><br>
 - Download the training dataset:<br>
     <code>python dataset_dl.py</code>
-- Change <code>t</code> to the size you desire.<br>
-- Change class_finder to have the correct matrix multiplication according to what dimensions you are resizing it to be.<br>
-- Change any other variables in gender_id.py that are expecting that resolution to match.<br>
+- Change <code>t</code> to the size you desire<br>
+- Change class_finder to have the correct matrix multiplication according to what dimensions you are resizing it to be<br>
+- Change any other variables in gender_id.py that are expecting that resolution to match<br>
 - In gender_id.ipynb, run each cell one by one<br><br>
 
 <b>To use the pre-trained 32x32 model:</b><br>
