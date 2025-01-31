@@ -16,8 +16,6 @@ with TACC's Frontera super computer, I found two distinct moments:
      Men recovered and grew exponentially, whereas women only just barely started to grow again
      in the 2020's
 
-Like the scientist I am, I naturally asked the question...
-
 ## Why?
 There are, of course, many reasons why. But, I wanted to zoom in on advertisements. Advertisements
   are extremely influential; razor companies promoted shaving as a feminine product to sell more razors...
@@ -43,7 +41,7 @@ During the conference, I only got it up and running with no new testing, so it w
 On the given database, it was 64% accurate; on my advertisements, it was even lower, at 41%.
 
 ## What's next?
-I will be training it on higher image quality, with more epochs, on my AMD 6970 GPU. Already, I was able to train it to 75% accuracy
+I will be training it on higher image quality, with more epochs, on my AMD 6950XT GPU. Already, I was able to train it to 75% accuracy
 with 128x128 resolution on 10 epochs on my macbook air M3, but it has its limitations. So, I believe with my GPU, I can get it close 
 to 100% accurate.
 
